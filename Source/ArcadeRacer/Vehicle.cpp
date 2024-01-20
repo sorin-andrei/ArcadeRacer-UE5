@@ -53,7 +53,7 @@ void AVehicle::NativeAsyncTick(float DeltaTime)
 
 	FVector TotalForce = FVector::ZeroVector;
 	ApplySuspensionForce(DeltaTime, Transform, DriveComponent->GetUpVector());
-	TotalForce += DriveComponent->ComputeThrottleForce() + DriveComponent->ComputeTractionForce() + DriveComponent->ComputeDriftForce();
+	TotalForce += DriveComponent->ComputeThrottleForce() + DriveComponent->ComputeTractionForce() + DriveComponent->ComputeDriftForce() + DriveComponent->ComputeDownforce();
 	
 	UAsyncTickFunctions::ATP_AddForce(Body, TotalForce, false);
 	UAsyncTickFunctions::ATP_AddTorque(Body, DriveComponent->ComputeSteeringTorque(), false);

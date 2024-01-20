@@ -97,6 +97,15 @@ FVector UDriveComponent::ComputeTractionForce()
 	return RightVector * (-1.f * (LateralSpeed / 0.036) * Traction * TractionMultiplier);
 }
 
+FVector UDriveComponent::ComputeDownforce()
+{
+	if (bIsGrounded)
+	{
+		return FVector::ZeroVector;
+	}
+	return UpVector * Downforce * -1.f;
+}
+
 FVector UDriveComponent::ComputeDriftForce()
 {
 	if (!bIsDrifting || CurrentSpeed >= SpeedCap || !bIsGrounded)
@@ -114,7 +123,7 @@ void UDriveComponent::SetSteeringInput(float Value)
 	 SteeringInput = Value;
 	 if (Value != 0)
 	 {
-		 FVector SteeringCoM = FVector(InitialCenterOfMass.X, -1.f * Value * SteeringRoll * (1 - GetCurrentSpeedNormalized()), InitialCenterOfMass.Z);
+		 FVector SteeringCoM = FVector(InitialCenterOfMass.X, -1.f * Value * BodyRoll * (1 - GetCurrentSpeedNormalized()), InitialCenterOfMass.Z);
 		 ParentVehicle->SetCenterOfMass(SteeringCoM);
 	 }
 	 else

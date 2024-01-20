@@ -30,13 +30,16 @@ public:
 	float Torque = 100000000.f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Handling")
-	float Traction = 30000.f;
+	float Downforce = 3000.f;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Handling")
 	float SpeedCap = 1200.f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Handling")
-	float SteeringRoll = 60.f;
+	float BodyRoll = 60.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Drifting")
+	float Traction = 30000.f;
 
 	UPROPERTY(BlueprintReadOnly)
 	UStaticMeshComponent* ParentVehicle;
@@ -45,6 +48,7 @@ public:
 	FVector ComputeSteeringTorque();
 	FVector ComputeTractionForce();
 	FVector ComputeDriftForce();
+	FVector ComputeDownforce();
 
 	UFUNCTION(BlueprintCallable)
 	float GetCurrentSpeed() {  return CurrentSpeed; };
